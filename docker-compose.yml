@@ -24,7 +24,7 @@ services:
       - ./models:/root/.insightface/models
     environment:
       - API_AUTH_KEY=mt_photos_ai_extra
-      - RECOGNITION_MODEL=buffalo_l # 在这里指定要使用的模型
+      - RECOGNITION_MODEL=buffalo_s # 在这里指定要使用的模型
     restart: unless-stopped
     networks:
       - face-net
