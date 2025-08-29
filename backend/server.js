@@ -36,7 +36,7 @@ const SIMILARITY_THRESHOLD = 0.6; // 余弦相似度阈值，高于这个值认�
 // 用于处理上传的临时文件
 const upload = multer({ dest: 'uploads/' });
 // 提供前端静态文件
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 
 // --- API 路由 ---
