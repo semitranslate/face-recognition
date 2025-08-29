@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>人脸门禁 - 注册</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>注册新用户</h1>
+        <form id="register-form">
+            <label for="name">姓名:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="photo">照片:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+            <button type="submit">注册</button>
+        </form>
+        <div id="message"></div>
+        <a href="/">去识别</a>
+    </div>
+
+    <script>
+        const form = document.getElementById('register-form');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            messageDiv.textContent = '正在注册，请稍候...';
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    messageDiv.textContent = '注册成功！';
+                    messageDiv.style.color = 'green';
+                    form.reset();
+                } else {
+                    messageDiv.textContent = '注册失败: ' + result.message;
+                    messageDiv.style.color = 'red';
+                }
+            } catch (error) {
+                messageDiv.textContent = '请求失败，请检查后端服务是否开启。';
+                messageDiv.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+
+</html>

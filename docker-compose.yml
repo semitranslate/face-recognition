@@ -1,0 +1,33 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  # 1. 定义我们的后端服务
+  backend:
+    build: . # 使用当前目录下的 Dockerfile 来构建镜像
+    container_name: backend-service # 给容器起个名字
+    ports:
+      - "3000:3000" # 将服务器的3000端口映射到容器的3000端口
+    restart: unless-stopped # 除非手动停止，否则容器总是在异常退出后自动重启
+    networks:
+      - face-net
+
+  # 2. 定义AI识别服务
+  ai-service:
+    image: kqstone/mt-photos-insightface-unofficial:latest
+    container_name: ai-service
+    volumes:
+      # 将服务器上的 ./models 目录挂载到容器内部
+      - ./models:/root/.insightface/models
+    environment:
+      - API_AUTH_KEY=mt_photos_ai_extra
+      - RECOGNITION_MODEL=buffalo_l # 在这里指定要使用的模型
+    restart: unless-stopped
+    networks:
+      - face-net
+
+# 3. 定义一个共享网络，让两个容器可以互相通信
+networks:
+  face-net:
+    driver: bridge
