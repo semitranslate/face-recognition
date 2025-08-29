@@ -55,7 +55,7 @@
                 formData.append('photo', blob, 'capture.jpg');
 
                 try {
-                    const response = await fetch('/recognize', {
+                    const response = await fetch('/face/recognize', {
                         method: 'POST',
                         body: formData
                     });
