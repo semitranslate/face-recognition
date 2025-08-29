@@ -11,9 +11,13 @@ const port = 3000;
 
 // --- 数据库 ---
 // 使用一个简单的 JSON 文件模拟数据库
-const DB_PATH = path.join(__dirname, 'face_database.json');
+const DATA_DIR = path.join(__dirname, 'data'); // 定义数据目录
+const DB_PATH = path.join(DATA_DIR, 'face_database.json'); // 定义新的DB路径
 
-// 初始化数据库文件
+// 初始化数据库文件和目录
+if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true }); // 如果data目录不存在，则创建它
+}
 if (!fs.existsSync(DB_PATH)) {
     fs.writeFileSync(DB_PATH, JSON.stringify([]));
 }

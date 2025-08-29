@@ -14,7 +14,7 @@
             <video id="video" width="640" height="480" autoplay playsinline></video>
             <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
         </div>
-        <a href="/register.html">去注册</a>
+        <a href="register.html">去注册</a>
     </div>
     <div id="toast" class="toast"></div>
 
@@ -62,10 +62,10 @@
                     const result = await response.json();
 
                     if (result.status === 'pass') {
-                        showToast(`通过 - ${result.name}`, true);
+                        showToast(`Hello, ${result.name}`, true);
                     } else if (result.status === 'fail') {
                         if (result.message !== '未检测到人脸') { // 只有在检测到人脸但未通过时才显示
-                            showToast('不通过', false);
+                            showToast('我还不认识你，去注册吧', false);
                         }
                     }
                 } catch (error) {
